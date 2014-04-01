@@ -26,6 +26,15 @@ Make sure that you call the ```load()``` method after, as to populate the archiv
 archive.load();
 ```
 
+You can then loop through each of the entries in the archive with the ```getEntries()``` method, and do as you please - for example, to list all of the entries in a single archive:
+
+```java
+for (Entry entry : archive.getEntries())
+{
+	System.out.println("Entry: " + entry.getFullName() + ": " + entry.getLength() + " bytes");
+}
+```
+
 Roadmap
 ------
 
