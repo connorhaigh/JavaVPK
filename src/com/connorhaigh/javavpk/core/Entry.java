@@ -25,12 +25,13 @@ public class Entry
 		this.archive = archive;
 		this.archiveIndex = archiveIndex;
 		
+		this.preloadData = preloadData;
+		
 		this.extension = extension;
 		this.path = path;
 		this.filename = filename;
 		
 		this.crc = crc;
-		
 		this.offset = offset;
 		this.length = length;
 		this.terminator = terminator;
@@ -183,7 +184,6 @@ public class Entry
 	private String filename;
 	
 	private int crc;
-	
 	private int offset;
 	private int length;
 	private short terminator;
