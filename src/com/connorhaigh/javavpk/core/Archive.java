@@ -111,6 +111,39 @@ public class Archive
 	}
 	
 	/**
+	 * Returns a list of entries within the specified path.
+	 * @param path the path to look in
+	 * @return the list of entries
+	 */
+	public ArrayList<Entry> getEntriesIn(String path)
+	{
+		//results
+		ArrayList<Entry> entries = new ArrayList<Entry>();
+		
+		//loop and check
+		for (Entry entry : this.entries)
+			if (entry.getPath().startsWith(path))
+				entries.add(entry);
+		
+		return entries;
+	}
+	
+	/**
+	 * Returns an entry with the specified full name (path, filename and extension) in this archive.
+	 * @param path the full name of the entry
+	 * @return the entry, or null
+	 */
+	public Entry getEntry(String fullName)
+	{
+		//loop and check
+		for (Entry entry : this.entries)
+			if (entry.getFullName().equals(fullName))
+				return entry;
+		
+		return null;
+	}
+	
+	/**
 	 * Reads a file input stream character by character until a null terminator is reached.
 	 * @param fileInputStream the file input stream to read
 	 * @return the assembled string
