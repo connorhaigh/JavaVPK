@@ -87,13 +87,18 @@ public class Archive
 						int entryLength = this.readUnsignedInt(fileInputStream);
 						short terminator = this.readUnsignedShort(fileInputStream);
 						
-						//create entry
-						Entry entry = new Entry(this, extension, path, filename, crc, archiveIndex, entryOffset, entryLength, terminator);
-						this.entries.add(entry);
-						
-						//TODO: add preload support
+						//check preload data
+						byte[] preloadData = null;
 						if (preloadSize > 0)
-							fileInputStream.skip(preloadSize);
+						{
+							//read preload data
+							preloadData = new byte[preloadSize];
+							fileInputStream.read(preloadData);
+						}
+							
+						//create entry
+						Entry entry = new Entry(this, archiveIndex, preloadData, extension, path, filename, crc, entryOffset, entryLength, terminator);
+						this.entries.add(entry);
 					}
 				}
 			}

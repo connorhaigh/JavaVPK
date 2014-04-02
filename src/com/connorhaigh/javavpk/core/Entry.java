@@ -7,20 +7,23 @@ import java.io.IOException;
 
 public class Entry 
 {
-	/**
+	/***
 	 * Create a new VPK archive entry.
+	 * @param archive the parent archive of this entry
+	 * @param archiveIndex the archive index of this entry
+	 * @param preloadData the small preload data, if any
 	 * @param extension the extension of this entry
 	 * @param path the path to this entry
-	 * @param filename the file name of this entry
+	 * @param filename the filename of this entry
 	 * @param crc the CRC checksum of this entry
-	 * @param archiveIndex the archive index of this entry
 	 * @param offset the offset of this entry
 	 * @param length the length of this entry
-	 * @param terminator the terminator of this entry
+	 * @param terminator the terminator to this entry
 	 */
-	public Entry(Archive archive, String extension, String path, String filename, int crc, short archiveIndex, int offset, int length, short terminator)
+	public Entry(Archive archive, short archiveIndex, byte[] preloadData, String extension, String path, String filename, int crc, int offset, int length, short terminator)
 	{
 		this.archive = archive;
+		this.archiveIndex = archiveIndex;
 		
 		this.extension = extension;
 		this.path = path;
@@ -28,7 +31,6 @@ public class Entry
 		
 		this.crc = crc;
 		
-		this.archiveIndex = archiveIndex;
 		this.offset = offset;
 		this.length = length;
 		this.terminator = terminator;
@@ -36,11 +38,16 @@ public class Entry
 	
 	/**
 	 * Reads and returns the raw data for this entry.
+	 * If the entry has preload data, that is returned instead.
 	 * @return the raw data
 	 * @throws IOException if the entry could not be read
 	 */
 	public byte[] readData() throws IOException
 	{
+		//check for preload data
+		if (this.preloadData != null)
+			return this.preloadData;
+		
 		try (FileInputStream fileInputStream = new FileInputStream(this.archive.getFile()))
 		{	
 			//data array
@@ -167,6 +174,9 @@ public class Entry
 	public static final int TERMINATOR = 0x7FFF;
 	
 	private Archive archive;
+	private short archiveIndex;
+	
+	private byte[] preloadData;
 	
 	private String extension;
 	private String path;
@@ -174,7 +184,6 @@ public class Entry
 	
 	private int crc;
 	
-	private short archiveIndex;
 	private int offset;
 	private int length;
 	private short terminator;
