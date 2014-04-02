@@ -144,8 +144,8 @@ public class Archive
 	}
 	
 	/**
-	 * Reads a file input stream character by character until a null terminator is reached.
-	 * @param fileInputStream the file input stream to read
+	 * Reads a stream character by character until a null terminator is reached.
+	 * @param fileInputStream the stream to read
 	 * @return the assembled string
 	 * @throws IOException if the stream could not be read
 	 */
@@ -156,15 +156,15 @@ public class Archive
 		
 		//read
 		int currentChar = 0;
-		while ((currentChar = fileInputStream.read()) != 0x0)
+		while ((currentChar = fileInputStream.read()) != Archive.NULL_TERMINATOR)
 			stringBuilder.append((char) currentChar);
 		
 		return stringBuilder.toString();
 	}
 	
 	/**
-	 * Reads an unsigned integer from a file input stream.
-	 * @param fileInputStream the file input stream to read
+	 * Reads an unsigned integer from a stream.
+	 * @param fileInputStream the stream to read
 	 * @return the unsigned integer
 	 * @throws IOException if the stream could not be read
 	 */
@@ -182,8 +182,8 @@ public class Archive
 	}
 	
 	/**
-	 * Reads an unsigned short from a file input stream.
-	 * @param fileInputStream the file input stream to read
+	 * Reads an unsigned short from a stream.
+	 * @param fileInputStream the stream to read
 	 * @return the unsigned short
 	 * @throws IOException if the stream could not be read
 	 */
@@ -211,6 +211,7 @@ public class Archive
 	
 	/**
 	 * Returns the signature of this archive.
+	 * In most cases, this should be 0x55AA1234.
 	 * @return the signature
 	 */
 	public int getSignature()
@@ -220,6 +221,7 @@ public class Archive
 	
 	/**
 	 * Returns the internal version of this archive.
+	 * In most cases, this should be 2.
 	 * @return the internal version
 	 */
 	public int getVersion()
@@ -256,6 +258,8 @@ public class Archive
 	
 	public static final int SIGNATURE = 0x55AA1234;
 	public static final int VERSION = 2;
+	
+	public static final char NULL_TERMINATOR = 0x0;
 	
 	private File file;
 	
