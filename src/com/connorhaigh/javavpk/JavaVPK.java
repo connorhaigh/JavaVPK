@@ -118,8 +118,6 @@ public class JavaVPK
 		{
 			//error
 			System.err.println("Error during extraction: " + ex.getMessage());
-			
-			ex.printStackTrace();
 		}
 	}
 }
