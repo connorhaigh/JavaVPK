@@ -33,5 +33,4 @@ Roadmap
 
 Planned support:
 
-- Support for the preload data in the header
-- Multi-chunk archives
+- Support for earlier archives (although not really crucial)

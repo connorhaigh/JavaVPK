@@ -18,6 +18,7 @@ public class Archive
 	public Archive(File file)
 	{
 		this.file = file;
+		this.multiPart = false;
 		
 		this.signature = 0;
 		this.version = 0;
@@ -36,11 +37,14 @@ public class Archive
 	{
 		try (FileInputStream fileInputStream = new FileInputStream(this.file))
 		{
+			//check for multiple child archives
+			this.multiPart = this.file.getName().contains("dir");
+			
 			//read header
 			this.signature = this.readUnsignedInt(fileInputStream);
 			this.version = this.readUnsignedInt(fileInputStream);
 			this.treeLength = this.readUnsignedInt(fileInputStream);
-			this.headerLength = 28;
+			this.headerLength = Archive.HEADER_SIZE;
 			
 			//check signature and version
 			if (this.signature != Archive.SIGNATURE)
@@ -144,6 +148,31 @@ public class Archive
 	}
 	
 	/**
+	 * Returns a child archive that belongs to this parent.
+	 * @param index the index of the archive
+	 * @return the child archive, or null
+	 * @throws ArchiveException if this archive is not made up of multiple children
+	 */
+	public File getChildArchive(int index) throws ArchiveException
+	{
+		//check
+		if (!this.multiPart)
+			throw new ArchiveException("Archive is not multi-part");
+		
+		//get parent
+		File parent = this.file.getParentFile();
+		if (parent == null)
+			throw new ArchiveException("Archive has no parent");
+		
+		//get child name
+		String fileName = this.file.getName();
+		String rootName = fileName.substring(0, fileName.length() - 8);
+		String childName = String.format("%s_%03d.vpk", rootName, index);
+		
+		return new File(parent, childName);
+	}
+	
+	/**
 	 * Reads a stream character by character until a null terminator is reached.
 	 * @param fileInputStream the stream to read
 	 * @return the assembled string
@@ -210,6 +239,15 @@ public class Archive
 	}
 	
 	/**
+	 * Returns if this archive is made of multiple children (separate VPK archives).
+	 * @return if this archive is made of multiple children
+	 */
+	public boolean isMultiPart()
+	{
+		return this.multiPart;
+	}
+	
+	/**
 	 * Returns the signature of this archive.
 	 * In most cases, this should be 0x55AA1234.
 	 * @return the signature
@@ -258,10 +296,12 @@ public class Archive
 	
 	public static final int SIGNATURE = 0x55AA1234;
 	public static final int VERSION = 2;
+	public static final int HEADER_SIZE = 28;
 	
 	public static final char NULL_TERMINATOR = 0x0;
 	
 	private File file;
+	private boolean multiPart;
 	
 	private int signature;
 	private int version;

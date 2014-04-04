@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import com.connorhaigh.javavpk.exceptions.ArchiveException;
+
 public class Entry 
 {
 	/***
@@ -42,24 +44,33 @@ public class Entry
 	 * If the entry has preload data, that is returned instead.
 	 * @return the raw data
 	 * @throws IOException if the entry could not be read
+	 * @throws ArchiveException if a general archive exception occurs
 	 */
-	public byte[] readData() throws IOException
+	public byte[] readData() throws IOException, ArchiveException
 	{
 		//check for preload data
 		if (this.preloadData != null)
 			return this.preloadData;
 		
-		try (FileInputStream fileInputStream = new FileInputStream(this.archive.getFile()))
+		//get target archive
+		File target = this.archive.getFile();
+		if (this.archive.isMultiPart())
+			target = this.archive.getChildArchive(this.archiveIndex);
+		
+		try (FileInputStream fileInputStream = new FileInputStream(target))
 		{	
 			//data array
 			byte[] data = new byte[this.length];
 			
-			//check for offset
+			//check for index
 			if (this.archiveIndex == Entry.TERMINATOR)
+			{
+				//skip tree and header
 				fileInputStream.skip(this.archive.getTreeLength());
+				fileInputStream.skip(this.archive.getHeaderLength());
+			}
 			
-			//read
-			fileInputStream.skip(this.archive.getHeaderLength());
+			//skip to offset and read
 			fileInputStream.skip(this.offset);
 			fileInputStream.read(data, 0, this.length);
 			
@@ -75,9 +86,10 @@ public class Entry
 	/**
 	 * Extract the data from this entry to the specified file.
 	 * @param file the file to extract to
-	 * @throws IOException if the entry could not be extracted
+	 * @throws IOException if the entry could not be read
+	 * @throws ArchiveException if a general archive exception occurs
 	 */
-	public void extract(File file) throws IOException
+	public void extract(File file) throws IOException, ArchiveException
 	{
 		try (FileOutputStream fileOutputStream = new FileOutputStream(file))
 		{
