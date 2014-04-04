@@ -134,7 +134,7 @@ public class Entry
 	 * Returns this entry's filename.
 	 * @return this entry's filename
 	 */
-	public String getFilename()
+	public String getFileName()
 	{
 		return this.filename;
 	}
