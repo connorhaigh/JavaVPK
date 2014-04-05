@@ -168,13 +168,8 @@ public class Archive
 		String fileName = this.file.getName();
 		String rootName = fileName.substring(0, fileName.length() - 8);
 		String childName = String.format("%s_%03d.vpk", rootName, index);
-		File child = new File(parent, childName);
 		
-		//check if exists
-		if (child == null || child.exists())
-			throw new ArchiveException("Archive with specified index '" + index + "' (" + childName + ") does not exist");
-		
-		return child;
+		return new File(parent, childName);
 	}
 	
 	/**
