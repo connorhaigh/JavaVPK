@@ -31,6 +31,4 @@ for (Entry entry : archive.getEntries())
 Roadmap
 ------
 
-Planned support:
-
-- Support for earlier archives (although not really crucial)
+- Full support for version 1 (entry skipping)

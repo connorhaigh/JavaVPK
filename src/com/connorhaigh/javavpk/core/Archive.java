@@ -44,20 +44,34 @@ public class Archive
 			this.signature = this.readUnsignedInt(fileInputStream);
 			this.version = this.readUnsignedInt(fileInputStream);
 			this.treeLength = this.readUnsignedInt(fileInputStream);
-			this.headerLength = Archive.HEADER_SIZE;
 			
 			//check signature and version
 			if (this.signature != Archive.SIGNATURE)
 				throw new ArchiveException("Invalid signature");
-			if (this.version != Archive.VERSION)
+			if (this.version < Archive.MINIMUM_VERSION || this.version > Archive.MAXIMUM_VERSION)
 				throw new ArchiveException("Unsupported version");
 			
-			//miscellaneous
-			//these parts of the header serve no purpose
-			this.readUnsignedInt(fileInputStream);
-			this.readUnsignedInt(fileInputStream);
-			this.readUnsignedInt(fileInputStream);
-			this.readUnsignedInt(fileInputStream);
+			//version handling
+			switch (this.version)
+			{
+				case Archive.VERSION_ONE:
+				{
+					this.headerLength = Archive.VERSION_ONE_HEADER_SIZE;
+					
+					break;
+				}
+				case Archive.VERSION_TWO:
+				{
+					this.headerLength = Archive.VERSION_TWO_HEADER_SIZE;
+					
+					//read extra data
+					//serves no purpose right now
+					this.readUnsignedInt(fileInputStream);
+					this.readUnsignedInt(fileInputStream);
+					this.readUnsignedInt(fileInputStream);
+					this.readUnsignedInt(fileInputStream);
+				}
+			}
 			
 			//extension loop
 			while (true)
@@ -295,10 +309,15 @@ public class Archive
 	}
 	
 	public static final int SIGNATURE = 0x55AA1234;
-	public static final int VERSION = 2;
-	public static final int HEADER_SIZE = 28;
-	
 	public static final char NULL_TERMINATOR = 0x0;
+	
+	public static final int MINIMUM_VERSION = 1;
+	public static final int MAXIMUM_VERSION = 2;
+	
+	public static final int VERSION_ONE = 1;
+	public static final int VERSION_TWO = 2;
+	public static final int VERSION_ONE_HEADER_SIZE = 12;
+	public static final int VERSION_TWO_HEADER_SIZE = 28;
 	
 	private File file;
 	private boolean multiPart;
