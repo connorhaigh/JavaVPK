@@ -25,8 +25,7 @@ public class JavaVPK
 			System.out.println("Usage:");
 			System.out.println("-i\tSpecify the input VPK file");
 			System.out.println("-o\tSpecify the output directory");
-			System.out.println("-v\tSet verbose output");
-			System.out.println("-t\tSet to only inspect the archive");
+			System.out.println("-v\tSpecify verbose output");
 			
 			return;
 		}
@@ -35,7 +34,6 @@ public class JavaVPK
 		String input = null;
 		String output = null;
 		boolean verbose = false;
-		boolean inspect = false;
 		
 		try
 		{
@@ -62,14 +60,12 @@ public class JavaVPK
 						
 						break;
 					}
-					case "-t":
-					{
-						inspect = true;
-						
-						break;
-					}
 				}
 			}
+			
+			//check arguments
+			if (input == null || output == null)
+				throw new Exception();
 		}
 		catch (Exception ex)
 		{
@@ -105,19 +101,7 @@ public class JavaVPK
 			//loop entries
 			System.out.println("Extracting " + archive.getEntries().size() + " entries...");
 			for (Entry entry : archive.getEntries())
-			{
-				if (inspect)
-				{
-					//details
-					System.out.println("\t" + entry.getFullName());
-					System.out.println("\t\tSize: " + entry.getLength() + " bytes");
-					System.out.println("\t\tOffset: " + entry.getOffset() + " bytes");
-					System.out.println("\t\tIndex: child " + entry.getArchiveIndex());
-					System.out.println("\t\tCRC32: " + entry.getCrc());
-					
-					continue;
-				}
-				
+			{	
 				if (verbose)
 					System.out.print("\tExtracting: " + entry.getFullName() + "... ");
 				
@@ -137,6 +121,7 @@ public class JavaVPK
 		catch (Exception ex)
 		{
 			//error
+			System.err.println();
 			System.err.println("Error during extraction: " + ex.getMessage());
 		}
 	}
