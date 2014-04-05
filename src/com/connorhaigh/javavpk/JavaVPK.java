@@ -112,6 +112,7 @@ public class JavaVPK
 					System.out.println("\t" + entry.getFullName());
 					System.out.println("\t\tSize: " + entry.getLength() + " bytes");
 					System.out.println("\t\tOffset: " + entry.getOffset() + " bytes");
+					System.out.println("\t\tIndex: child " + entry.getArchiveIndex());
 					System.out.println("\t\tCRC32: " + entry.getCrc());
 					
 					continue;
