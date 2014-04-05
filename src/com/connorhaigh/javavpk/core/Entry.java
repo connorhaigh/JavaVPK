@@ -113,6 +113,15 @@ public class Entry
 	}
 	
 	/**
+	 * Returns the child archive index this entry is contained in.
+	 * @return the child archive index
+	 */
+	public int getArchiveIndex()
+	{
+		return this.archiveIndex;
+	}
+	
+	/**
 	 * Returns this entry's extension.
 	 * @return this entry's extension
 	 */
