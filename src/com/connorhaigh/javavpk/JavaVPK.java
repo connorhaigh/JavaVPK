@@ -26,7 +26,7 @@ public class JavaVPK
 			System.out.println("-i\tSpecify the input VPK file");
 			System.out.println("-o\tSpecify the output directory");
 			System.out.println("-v\tSet verbose output");
-			System.out.println("-l\tSet to only inspect the archive");
+			System.out.println("-t\tSet to only inspect the archive");
 			
 			return;
 		}
