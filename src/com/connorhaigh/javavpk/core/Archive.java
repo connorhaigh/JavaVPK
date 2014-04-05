@@ -38,7 +38,7 @@ public class Archive
 		try (FileInputStream fileInputStream = new FileInputStream(this.file))
 		{
 			//check for multiple child archives
-			this.multiPart = this.file.getName().contains("dir");
+			this.multiPart = this.file.getName().contains("_dir");
 			
 			//read header
 			this.signature = this.readUnsignedInt(fileInputStream);
