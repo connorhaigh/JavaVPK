@@ -22,7 +22,7 @@ public class Entry
 	 * @param length the length of this entry
 	 * @param terminator the terminator to this entry
 	 */
-	public Entry(Archive archive, short archiveIndex, byte[] preloadData, String extension, String path, String filename, int crc, int offset, int length, short terminator)
+	protected Entry(Archive archive, short archiveIndex, byte[] preloadData, String extension, String path, String filename, int crc, int offset, int length, short terminator)
 	{
 		this.archive = archive;
 		this.archiveIndex = archiveIndex;
