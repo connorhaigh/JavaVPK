@@ -120,7 +120,6 @@ public class JavaVPK
 		}
 		catch (Exception ex)
 		{
-			//error
 			System.err.println();
 			System.err.println("Error during extraction: " + ex.getMessage());
 		}

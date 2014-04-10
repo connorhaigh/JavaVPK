@@ -123,7 +123,6 @@ public class Archive
 		}
 		catch (Exception ex)
 		{
-			//error
 			throw ex;
 		}
 	}

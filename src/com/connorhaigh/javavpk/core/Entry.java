@@ -78,7 +78,6 @@ public class Entry
 		}
 		catch (Exception ex)
 		{
-			//error
 			throw ex;
 		}
 	}
@@ -98,7 +97,6 @@ public class Entry
 		}
 		catch (Exception ex)
 		{
-			//error
 			throw ex;
 		}
 	}
