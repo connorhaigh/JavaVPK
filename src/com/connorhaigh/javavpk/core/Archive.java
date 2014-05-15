@@ -113,7 +113,7 @@ public class Archive
 							preloadData = new byte[preloadSize];
 							fileInputStream.read(preloadData);
 						}
-							
+						
 						//create entry
 						Entry entry = new Entry(this, archiveIndex, preloadData, extension, path, filename, crc, entryOffset, entryLength, terminator);
 						this.entries.add(entry);
