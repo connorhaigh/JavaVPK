@@ -67,7 +67,7 @@ public class JavaVPK
 			if (input == null || output == null)
 				throw new Exception();
 		}
-		catch (Exception ex)
+		catch (Exception exception)
 		{
 			//invalid arguments
 			System.err.println("Invalid arguments specified");
@@ -118,10 +118,10 @@ public class JavaVPK
 			//done
 			System.out.println("Extracted " + archive.getEntries().size() + " entries successfully");
 		}
-		catch (Exception ex)
+		catch (Exception exception)
 		{
 			System.err.println();
-			System.err.println("Error during extraction: " + ex.getMessage());
+			System.err.println("Error during extraction: " + exception.getMessage());
 		}
 	}
 }

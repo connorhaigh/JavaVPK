@@ -121,9 +121,9 @@ public class Archive
 				}
 			}
 		}
-		catch (Exception ex)
+		catch (Exception exception)
 		{
-			throw ex;
+			throw exception;
 		}
 	}
 	

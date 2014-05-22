@@ -76,9 +76,9 @@ public class Entry
 			
 			return data;
 		}
-		catch (Exception ex)
+		catch (Exception exception)
 		{
-			throw ex;
+			throw exception;
 		}
 	}
 	
@@ -95,9 +95,9 @@ public class Entry
 			//write
 			fileOutputStream.write(this.readData());
 		}
-		catch (Exception ex)
+		catch (Exception exception)
 		{
-			throw ex;
+			throw exception;
 		}
 	}
 	
