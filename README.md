@@ -13,7 +13,7 @@ If you're just wanting to extract VPK archives (or just see the library in actio
 Initial setup
 ------
 
-To read and extract from an archive, you'll need to create a new ```Archive``` object, and then load the entries.
+To read and extract from an archive, you'll need to create a new `Archive` object, and then load the entries.
 
 ```java
 File archiveFile = new File("some_archive.vpk");
@@ -21,7 +21,7 @@ Archive archive = new Archive(archiveFile);
 archive.load();
 ```
 
-You can then loop through each of the entries in the archive with the ```getEntries()``` method, and do as you please - for example, to list all of the entries in a single archive:
+You can then loop through each of the entries in the archive with the `getEntries()` method, and do as you please - for example, to list all of the entries in a single archive:
 
 ```java
 for (Entry entry : archive.getEntries())
