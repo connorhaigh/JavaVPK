@@ -201,7 +201,7 @@ public class Archive
 			//read character and return if end
 			char character = (char) fileInputStream.read();
 			if (character == Archive.NULL_TERMINATOR)
-				return stringBuilder.toString();
+				return stringBuilder.toString().trim();
 			
 			//append
 			stringBuilder.append(character);
