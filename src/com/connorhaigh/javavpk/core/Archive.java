@@ -121,10 +121,6 @@ public class Archive
 				}
 			}
 		}
-		catch (Exception exception)
-		{
-			throw exception;
-		}
 	}
 	
 	/**

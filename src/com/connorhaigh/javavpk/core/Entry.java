@@ -76,10 +76,6 @@ public class Entry
 			
 			return data;
 		}
-		catch (Exception exception)
-		{
-			throw exception;
-		}
 	}
 	
 	/**
@@ -94,10 +90,6 @@ public class Entry
 		{
 			//write
 			fileOutputStream.write(this.readData());
-		}
-		catch (Exception exception)
-		{
-			throw exception;
 		}
 	}
 	
