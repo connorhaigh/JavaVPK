@@ -53,16 +53,14 @@ public class Entry
 			return this.preloadData;
 		
 		//get target archive
-		File target = this.archive.getFile();
+		File target = null;
 		if (this.archive.isMultiPart())
 			target = this.archive.getChildArchive(this.archiveIndex);
+		else
+			target = this.archive.getFile();
 		
 		try (FileInputStream fileInputStream = new FileInputStream(target))
-		{	
-			//data array
-			byte[] data = new byte[this.length];
-			
-			//check for index
+		{
 			if (this.archiveIndex == Entry.TERMINATOR)
 			{
 				//skip tree and header
@@ -70,7 +68,8 @@ public class Entry
 				fileInputStream.skip(this.archive.getHeaderLength());
 			}
 			
-			//skip to offset and read
+			//read data
+			byte[] data = new byte[this.length];
 			fileInputStream.skip(this.offset);
 			fileInputStream.read(data, 0, this.length);
 			
