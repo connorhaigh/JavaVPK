@@ -196,12 +196,16 @@ public class Archive
 		//builder
 		StringBuilder stringBuilder = new StringBuilder();
 		
-		//read
-		int currentChar = 0;
-		while ((currentChar = fileInputStream.read()) != Archive.NULL_TERMINATOR)
-			stringBuilder.append((char) currentChar);
-		
-		return stringBuilder.toString().trim();
+		while (true)
+		{
+			//read character and return if end
+			char character = (char) fileInputStream.read();
+			if (character == Archive.NULL_TERMINATOR)
+				return stringBuilder.toString();
+			
+			//append
+			stringBuilder.append(character);
+		}
 	}
 	
 	/**

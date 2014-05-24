@@ -96,6 +96,7 @@ public class JavaVPK
 				System.out.println("\t" + inputFile.getName());
 				System.out.println("\tSignature: " + archive.getSignature());
 				System.out.println("\tVersion: " + archive.getVersion());
+				System.out.println("\tEntries: " + archive.getEntries().size());
 			}
 			
 			//loop entries
