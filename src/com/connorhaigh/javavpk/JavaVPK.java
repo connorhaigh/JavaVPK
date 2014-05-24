@@ -106,14 +106,24 @@ public class JavaVPK
 				if (verbose)
 					System.out.print("\tExtracting: " + entry.getFullName() + "... ");
 				
-				//extract
-				File entryDirectory = new File(outputDirectory, entry.getPath());
-				File entryFile = new File(outputDirectory, entry.getFullName());
-				entryDirectory.mkdirs();
-				entry.extract(entryFile);
-				
-				if (verbose)
-					System.out.println("done");
+				try
+				{
+					//extract
+					File entryDirectory = new File(outputDirectory, entry.getPath());
+					File entryFile = new File(outputDirectory, entry.getFullName());
+					entryDirectory.mkdirs();
+					entry.extract(entryFile);
+					
+					//done
+					if (verbose)
+						System.out.println("done");
+				}
+				catch (Exception exception)
+				{
+					//failed
+					if (verbose)
+						System.out.println("failed");
+				}
 			}
 			
 			//done
@@ -121,6 +131,7 @@ public class JavaVPK
 		}
 		catch (Exception exception)
 		{
+			//failed
 			System.err.println();
 			System.err.println("Error during extraction: " + exception.getMessage());
 		}

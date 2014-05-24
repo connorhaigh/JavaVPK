@@ -97,10 +97,6 @@ public class Archive
 						if (filename.isEmpty())
 							break;
 						
-						//remove root slash
-						if (filename.startsWith("/"))
-							filename = filename.substring(1);
-						
 						//read data
 						int crc = this.readUnsignedInt(fileInputStream);
 						short preloadSize = this.readUnsignedShort(fileInputStream);
@@ -195,17 +191,13 @@ public class Archive
 	{
 		//builder
 		StringBuilder stringBuilder = new StringBuilder();
-		
-		while (true)
-		{
-			//read character and return if end
-			char character = (char) fileInputStream.read();
-			if (character == Archive.NULL_TERMINATOR)
-				return stringBuilder.toString().trim();
-			
-			//append
-			stringBuilder.append(character);
-		}
+
+		//read
+		int character = 0;
+		while ((character = fileInputStream.read()) != Archive.NULL_TERMINATOR)
+			stringBuilder.append((char) character);
+
+		return stringBuilder.toString();
 	}
 	
 	/**
