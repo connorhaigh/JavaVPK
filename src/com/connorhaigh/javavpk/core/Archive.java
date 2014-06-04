@@ -8,15 +8,20 @@ import java.nio.ByteOrder;
 import java.util.ArrayList;
 
 import com.connorhaigh.javavpk.exceptions.ArchiveException;
+import com.connorhaigh.javavpk.exceptions.EntryException;
 
 public class Archive 
 {
 	/**
 	 * Create a new VPK archive.
 	 * @param file the archive file
+	 * @throws ArchiveException if the archive file is null
 	 */
-	public Archive(File file)
+	public Archive(File file) throws ArchiveException
 	{
+		if (file == null)
+			throw new ArchiveException("Archive file cannot be null");
+		
 		this.file = file;
 		this.multiPart = false;
 		
@@ -32,8 +37,9 @@ public class Archive
 	 * Load the raw data from file to this archive.
 	 * @throws IOException if the archive could not be read
 	 * @throws ArchiveException if a general archive exception occurs
+	 * @throws EntryException if a general entry exception occurs
 	 */
-	public void load() throws IOException, ArchiveException
+	public void load() throws IOException, ArchiveException, EntryException
 	{
 		try (FileInputStream fileInputStream = new FileInputStream(this.file))
 		{

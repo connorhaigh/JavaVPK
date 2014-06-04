@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import com.connorhaigh.javavpk.exceptions.ArchiveException;
+import com.connorhaigh.javavpk.exceptions.EntryException;
 
 public class Entry 
 {
@@ -21,9 +22,13 @@ public class Entry
 	 * @param offset the offset of this entry
 	 * @param length the length of this entry
 	 * @param terminator the terminator to this entry
+	 * @throws EntryException if the archive is null
 	 */
-	protected Entry(Archive archive, short archiveIndex, byte[] preloadData, String extension, String path, String filename, int crc, int offset, int length, short terminator)
+	protected Entry(Archive archive, short archiveIndex, byte[] preloadData, String extension, String path, String filename, int crc, int offset, int length, short terminator) throws EntryException
 	{
+		if (archive == null)
+			throw new EntryException("Parent archive cannot be null");
+		
 		this.archive = archive;
 		this.archiveIndex = archiveIndex;
 		
