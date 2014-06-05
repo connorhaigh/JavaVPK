@@ -136,13 +136,12 @@ public class Archive
 	 */
 	public ArrayList<Entry> getEntriesIn(String path)
 	{
-		//results
+		//find results
 		ArrayList<Entry> entries = new ArrayList<Entry>();
-		
-		//loop and check
-		for (Entry entry : this.entries)
-			if (entry.getPath().startsWith(path))
-				entries.add(entry);
+		this.entries.stream()
+			.filter(e -> e.getPath()
+			.startsWith(path))
+			.forEach(entries::add);
 		
 		return entries;
 	}
@@ -154,12 +153,11 @@ public class Archive
 	 */
 	public Entry getEntry(String fullName)
 	{
-		//loop and check
-		for (Entry entry : this.entries)
-			if (entry.getFullName().equals(fullName))
-				return entry;
-		
-		return null;
+		return this.entries.stream()
+				.filter(e -> e.getFullName()
+				.equals(fullName))
+				.findFirst()
+				.orElse(null);
 	}
 	
 	/**
