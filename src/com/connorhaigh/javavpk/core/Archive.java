@@ -205,7 +205,7 @@ public class Archive
 	}
 	
 	/**
-	 * Reads an unsigned integer from a stream.
+	 * Reads an unsigned integer (4 bytes) from a stream.
 	 * @param fileInputStream the stream to read
 	 * @return the unsigned integer
 	 * @throws IOException if the stream could not be read
@@ -214,7 +214,7 @@ public class Archive
 	{
 		//byte array
 		byte[] buffer = new byte[4];
-		fileInputStream.read(buffer, 0, 4);
+		fileInputStream.read(buffer);
 		
 		//byte buffer
 		ByteBuffer byteBuffer = ByteBuffer.wrap(buffer);
@@ -224,7 +224,7 @@ public class Archive
 	}
 	
 	/**
-	 * Reads an unsigned short from a stream.
+	 * Reads an unsigned short (2 bytes) from a stream.
 	 * @param fileInputStream the stream to read
 	 * @return the unsigned short
 	 * @throws IOException if the stream could not be read
@@ -233,7 +233,7 @@ public class Archive
 	{
 		//byte array
 		byte[] buffer = new byte[2];
-		fileInputStream.read(buffer, 0, 2);
+		fileInputStream.read(buffer);
 		
 		//byte buffer
 		ByteBuffer byteBuffer = ByteBuffer.wrap(buffer);
