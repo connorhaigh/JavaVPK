@@ -154,10 +154,10 @@ public class Archive
 	public Entry getEntry(String fullName)
 	{
 		return this.entries.stream()
-				.filter(e -> e.getFullName()
-				.equals(fullName))
-				.findFirst()
-				.orElse(null);
+			.filter(e -> e.getFullName()
+			.equals(fullName))
+			.findFirst()
+			.orElse(null);
 	}
 	
 	/**
