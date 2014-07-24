@@ -15,16 +15,15 @@ public class Entry
 	 * @param archive the parent archive of this entry
 	 * @param archiveIndex the archive index of this entry
 	 * @param preloadData the small preload data, if any
-	 * @param extension the extension of this entry
-	 * @param path the path to this entry
 	 * @param filename the filename of this entry
+	 * @param extension the extension of this entry
 	 * @param crc the CRC checksum of this entry
 	 * @param offset the offset of this entry
 	 * @param length the length of this entry
 	 * @param terminator the terminator to this entry
 	 * @throws EntryException if the archive is null
 	 */
-	protected Entry(Archive archive, short archiveIndex, byte[] preloadData, String extension, String path, String filename, int crc, int offset, int length, short terminator) throws EntryException
+	protected Entry(Archive archive, short archiveIndex, byte[] preloadData, String filename, String extension, int crc, int offset, int length, short terminator) throws EntryException
 	{
 		if (archive == null)
 			throw new EntryException("Parent archive cannot be null");
@@ -34,9 +33,8 @@ public class Entry
 		
 		this.preloadData = preloadData;
 		
-		this.extension = extension;
-		this.path = path;
-		this.filename = filename;
+		this.filename = filename.trim();
+		this.extension = extension.trim();
 		
 		this.crc = crc;
 		this.offset = offset;
@@ -116,26 +114,8 @@ public class Entry
 	}
 	
 	/**
-	 * Returns this entry's extension.
-	 * @return this entry's extension
-	 */
-	public String getExtension()
-	{
-		return this.extension;
-	}
-	
-	/**
-	 * Returns this entry's path.
-	 * @return this entry's path
-	 */
-	public String getPath()
-	{
-		return this.path;
-	}
-	
-	/**
-	 * Returns this entry's filename.
-	 * @return this entry's filename
+	 * Returns the file name of this entry.
+	 * @return the file name
 	 */
 	public String getFileName()
 	{
@@ -143,12 +123,21 @@ public class Entry
 	}
 	
 	/**
-	 * Returns this entry's full path name.
-	 * @return this entry's full path name
+	 * Returns the extension of this entry.
+	 * @return the extension
+	 */
+	public String getExtension()
+	{
+		return this.extension;
+	}
+	
+	/**
+	 * Returns the full name of this entry.
+	 * @return the full name
 	 */
 	public String getFullName()
 	{
-		return (this.path + "/" + this.filename + "." + this.extension);
+		return (this.filename + "." + this.extension);
 	}
 	
 	/**
@@ -194,9 +183,8 @@ public class Entry
 	
 	private byte[] preloadData;
 	
-	private String extension;
-	private String path;
 	private String filename;
+	private String extension;
 	
 	private int crc;
 	private int offset;

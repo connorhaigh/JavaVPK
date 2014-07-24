@@ -30,7 +30,7 @@ public class Archive
 		this.treeLength = 0;
 		this.headerLength = 0;
 		
-		this.entries = new ArrayList<Entry>();
+		this.directories = new ArrayList<Directory>();
 	}
 	
 	/**
@@ -95,6 +95,10 @@ public class Archive
 					if (path.isEmpty())
 						break;
 					
+					//directory
+					Directory directory = new Directory(path);
+					this.directories.add(directory);
+					
 					//filename loop
 					while (true)
 					{
@@ -121,43 +125,12 @@ public class Archive
 						}
 						
 						//create entry
-						Entry entry = new Entry(this, archiveIndex, preloadData, extension, path, filename, crc, entryOffset, entryLength, terminator);
-						this.entries.add(entry);
+						Entry entry = new Entry(this, archiveIndex, preloadData, filename, extension, crc, entryOffset, entryLength, terminator);
+						directory.addEntry(entry);
 					}
 				}
 			}
 		}
-	}
-	
-	/**
-	 * Returns a list of entries within the specified path.
-	 * @param path the path to look in
-	 * @return the list of entries
-	 */
-	public ArrayList<Entry> getEntriesIn(String path)
-	{
-		//find results
-		ArrayList<Entry> entries = new ArrayList<Entry>();
-		this.entries.stream()
-			.filter(e -> e.getPath()
-			.startsWith(path))
-			.forEach(entries::add);
-		
-		return entries;
-	}
-	
-	/**
-	 * Returns an entry with the specified full name (path, filename and extension) in this archive.
-	 * @param path the full name of the entry
-	 * @return the entry, or null
-	 */
-	public Entry getEntry(String fullName)
-	{
-		return this.entries.stream()
-			.filter(e -> e.getFullName()
-			.equals(fullName))
-			.findFirst()
-			.orElse(null);
 	}
 	
 	/**
@@ -299,12 +272,12 @@ public class Archive
 	}
 	
 	/**
-	 * Returns the list of entries in this archive.
-	 * @return the list of entries
+	 * Returns the list of directories in this archive.
+	 * @return the list of directories
 	 */
-	public ArrayList<Entry> getEntries()
+	public ArrayList<Directory> getDirectories()
 	{
-		return this.entries;
+		return this.directories;
 	}
 	
 	public static final int SIGNATURE = 0x55AA1234;
@@ -326,5 +299,5 @@ public class Archive
 	private int treeLength;
 	private int headerLength;
 	
-	private ArrayList<Entry> entries;
+	private ArrayList<Directory> directories;
 }

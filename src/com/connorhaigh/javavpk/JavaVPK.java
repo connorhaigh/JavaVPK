@@ -3,6 +3,7 @@ package com.connorhaigh.javavpk;
 import java.io.File;
 
 import com.connorhaigh.javavpk.core.Archive;
+import com.connorhaigh.javavpk.core.Directory;
 import com.connorhaigh.javavpk.core.Entry;
 
 public class JavaVPK 
@@ -96,38 +97,39 @@ public class JavaVPK
 				System.out.println("\t" + inputFile.getName());
 				System.out.println("\tSignature: " + archive.getSignature());
 				System.out.println("\tVersion: " + archive.getVersion());
-				System.out.println("\tEntries: " + archive.getEntries().size());
+				System.out.println("\tDirectories: " + archive.getDirectories().size());
 			}
 			
-			//loop entries
-			System.out.println("Extracting " + archive.getEntries().size() + " entries...");
-			for (Entry entry : archive.getEntries())
-			{	
+			//loop directories
+			System.out.println("Extracting all entries...");
+			for (Directory directory : archive.getDirectories())
+			{
 				if (verbose)
-					System.out.print("\tExtracting: " + entry.getFullName() + "... ");
+					System.out.println("\t" + directory.getPath());
 				
-				try
+				//loop entries
+				for (Entry entry : directory.getEntries())
 				{
-					//extract
-					File entryDirectory = new File(outputDirectory, entry.getPath());
-					File entryFile = new File(outputDirectory, entry.getFullName());
-					entryDirectory.mkdirs();
-					entry.extract(entryFile);
+					if (verbose)
+						System.out.println("\t\t" + entry.getFullName());
 					
-					//done
-					if (verbose)
-						System.out.println("done");
-				}
-				catch (Exception exception)
-				{
-					//failed
-					if (verbose)
-						System.out.println("failed");
+					try
+					{
+						//extract
+						File entryDirectory = new File(outputDirectory, directory.getPath());
+						File entryFile = new File(outputDirectory, directory.getPath() + File.separator + entry.getFullName());
+						entryDirectory.mkdirs();
+						entry.extract(entryFile);
+					}
+					catch (Exception exception)
+					{
+						throw exception;
+					}
 				}
 			}
 			
 			//done
-			System.out.println("Extracted " + archive.getEntries().size() + " entries successfully");
+			System.out.println("Extracted all entries successfully");
 		}
 		catch (Exception exception)
 		{
