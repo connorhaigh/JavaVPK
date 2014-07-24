@@ -21,11 +21,14 @@ Archive archive = new Archive(archiveFile);
 archive.load();
 ```
 
-You can then loop through each of the entries in the archive with the `getEntries()` method, and do as you please - for example, to list all of the entries in a single archive:
+You can think of the archive as a virtual file system. Each of the entries are stored in a `Directory`, and each of the directories are stored in the `Archive`.
+
+You can loop through each of the directories in the archive, and then loop through each of the entries in the directory, like so:
 
 ```java
-for (Entry entry : archive.getEntries())
-	System.out.println("Entry: " + entry.getFullName() + ": " + entry.getLength() + " bytes");
+for (Directory directory : archive.getDirectories())
+	for (Entry entry : directory.getEntries())
+		System.out.println(entry.getFullName() + " in " + directory.getPath());
 ```
 
 Roadmap
