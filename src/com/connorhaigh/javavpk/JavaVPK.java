@@ -117,7 +117,7 @@ public class JavaVPK
 					{
 						//extract
 						File entryDirectory = new File(outputDirectory, directory.getPath());
-						File entryFile = new File(outputDirectory, directory.getPath() + File.separator + entry.getFullName());
+						File entryFile = new File(outputDirectory, directory.getPathFor(entry));
 						entryDirectory.mkdirs();
 						entry.extract(entryFile);
 					}

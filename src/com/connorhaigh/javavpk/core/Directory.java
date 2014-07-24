@@ -1,5 +1,6 @@
 package com.connorhaigh.javavpk.core;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Directory 
@@ -21,6 +22,16 @@ public class Directory
 	public String getPath()
 	{
 		return this.path;
+	}
+	
+	/**
+	 * Returns the full path for an entry in this directory.
+	 * @param entry the entry
+	 * @return the full path
+	 */
+	public String getPathFor(Entry entry)
+	{
+		return (this.path + File.separator + entry.getFullName());
 	}
 	
 	/**
