@@ -25,7 +25,7 @@ public class JavaVPK
 			System.out.println("Usage:");
 			System.out.println("\t" + JavaVPK.INPUT_OPTION + "\t\tSpecify the input VPK file");
 			System.out.println("\t" + JavaVPK.OUTPUT_OPTION +"\t\tSpecify the output directory");
-			System.out.println("\t" + JavaVPK.VERBOSE_OPTION + "\tSpecify verbose output");
+			System.out.println("\t" + JavaVPK.VERBOSE_OPTION + "\tToggle verbose output");
 			
 			return;
 		}
