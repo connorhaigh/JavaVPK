@@ -19,14 +19,13 @@ public class JavaVPK
 		System.out.println("(C) Connor Haigh 2014");
 		System.out.println();
 		
-		//check for arguments
 		if (args.length <= 0)
 		{
 			//usage
 			System.out.println("Usage:");
-			System.out.println("-i\tSpecify the input VPK file");
-			System.out.println("-o\tSpecify the output directory");
-			System.out.println("-v\tSpecify verbose output");
+			System.out.println("\t" + JavaVPK.INPUT_OPTION + "\t\tSpecify the input VPK file");
+			System.out.println("\t" + JavaVPK.OUTPUT_OPTION +"\t\tSpecify the output directory");
+			System.out.println("\t" + JavaVPK.VERBOSE_OPTION + "\tSpecify verbose output");
 			
 			return;
 		}
@@ -43,19 +42,19 @@ public class JavaVPK
 			{
 				switch (args[argument])
 				{
-					case "-i":
+					case JavaVPK.INPUT_OPTION:
 					{
 						input = args[++argument];
 						
 						break;
 					}
-					case "-o":
+					case JavaVPK.OUTPUT_OPTION:
 					{
 						output = args[++argument];
 						
 						break;
 					}
-					case "-v":
+					case JavaVPK.VERBOSE_OPTION:
 					{
 						verbose = true;
 						
@@ -138,4 +137,8 @@ public class JavaVPK
 			System.err.println("Error during extraction: " + exception.getMessage());
 		}
 	}
+	
+	public static final String INPUT_OPTION = "-input";
+	public static final String OUTPUT_OPTION = "-output";
+	public static final String VERBOSE_OPTION = "-verbose";
 }
