@@ -1,18 +1,15 @@
 JavaVPK
-=======
-
+=====
 A Java library for reading and extracting VPK files from most Valve games.
 
 Installation
-------
-
-To install JavaVPK, you can build from the repo, or alternatively download the pre-built JAR.
+-----
+To install JavaVPK, you can build from the repository, or alternatively download the pre-built JAR.
 
 If you're just wanting to extract VPK archives (or just see the library in action), a command-line application is provided.
 
 Initial setup
-------
-
+-----
 To read and extract from an archive, you'll need to create a new `Archive` object, and then load the entries.
 
 ```java
@@ -32,6 +29,5 @@ for (Directory directory : archive.getDirectories())
 ```
 
 Roadmap
-------
-
+-----
 - Library is complete (as far as I can tell)
