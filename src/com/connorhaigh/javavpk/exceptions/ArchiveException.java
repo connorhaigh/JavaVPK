@@ -3,7 +3,7 @@ package com.connorhaigh.javavpk.exceptions;
 public class ArchiveException extends Exception
 {
 	/**
-	 * Create a new VPK archive exception.
+	 * Creates a new VPK archive exception.
 	 * @param message the message
 	 */
 	public ArchiveException(String message)

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Directory 
 {
 	/**
-	 * Create a new VPK directory.
+	 * Creates a new VPK directory.
 	 * @param path the path of the directory
 	 */
 	public Directory(String path)
@@ -35,7 +35,7 @@ public class Directory
 	}
 	
 	/**
-	 * Add an entry to this directory.
+	 * Adds an entry to this directory.
 	 * @param entry the entry
 	 */
 	public void addEntry(Entry entry)
@@ -44,7 +44,7 @@ public class Directory
 	}
 	
 	/**
-	 * Remove an entry from this directory.
+	 * Removes an entry from this directory.
 	 * @param entry the entry
 	 */
 	public void removeEntry(Entry entry)

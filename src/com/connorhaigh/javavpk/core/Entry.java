@@ -11,7 +11,7 @@ import com.connorhaigh.javavpk.exceptions.EntryException;
 public class Entry 
 {
 	/***
-	 * Create a new VPK archive entry.
+	 * Creates a new VPK archive entry.
 	 * @param archive the parent archive of this entry
 	 * @param archiveIndex the archive index of this entry
 	 * @param preloadData the small preload data, if any
@@ -81,7 +81,7 @@ public class Entry
 	}
 	
 	/**
-	 * Extract the data from this entry to the specified file.
+	 * Extracts the data from this entry to the specified file.
 	 * @param file the file to extract to
 	 * @throws IOException if the entry could not be read
 	 * @throws ArchiveException if a general archive exception occurs

@@ -13,7 +13,7 @@ import com.connorhaigh.javavpk.exceptions.EntryException;
 public class Archive 
 {
 	/**
-	 * Create a new VPK archive.
+	 * Creates a new VPK archive.
 	 * @param file the archive file
 	 * @throws ArchiveException if the archive file is null
 	 */
