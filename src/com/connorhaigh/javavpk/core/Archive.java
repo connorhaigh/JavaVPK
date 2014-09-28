@@ -19,9 +19,6 @@ public class Archive
 	 */
 	public Archive(File file) throws ArchiveException
 	{
-		if (file == null)
-			throw new ArchiveException("Archive file cannot be null");
-		
 		this.file = file;
 		this.multiPart = false;
 		
@@ -79,7 +76,6 @@ public class Archive
 				}
 			}
 			
-			//extension loop
 			while (true)
 			{
 				//get extension
@@ -87,7 +83,6 @@ public class Archive
 				if (extension.isEmpty())
 					break;
 				
-				//path loop
 				while (true)
 				{
 					//get path
@@ -99,7 +94,6 @@ public class Archive
 					Directory directory = new Directory(path);
 					this.directories.add(directory);
 					
-					//filename loop
 					while (true)
 					{
 						//get filename
@@ -114,9 +108,8 @@ public class Archive
 						int entryOffset = this.readUnsignedInt(fileInputStream);
 						int entryLength = this.readUnsignedInt(fileInputStream);
 						short terminator = this.readUnsignedShort(fileInputStream);
-						
-						//check preload data
 						byte[] preloadData = null;
+						
 						if (preloadSize > 0)
 						{
 							//read preload data
@@ -185,15 +178,7 @@ public class Archive
 	 */
 	private int readUnsignedInt(FileInputStream fileInputStream) throws IOException
 	{
-		//byte array
-		byte[] buffer = new byte[4];
-		fileInputStream.read(buffer);
-		
-		//byte buffer
-		ByteBuffer byteBuffer = ByteBuffer.wrap(buffer);
-		byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
-		
-		return byteBuffer.getInt();
+		return this.readBytes(fileInputStream, 4).getInt();
 	}
 	
 	/**
@@ -204,15 +189,27 @@ public class Archive
 	 */
 	private short readUnsignedShort(FileInputStream fileInputStream) throws IOException
 	{
+		return this.readBytes(fileInputStream, 2).getShort();
+	}
+	
+	/**
+	 * Reads the specified amount of bytes from a stream.
+	 * @param fileInputStream the stream to read
+	 * @param size the amount of bytes to read
+	 * @return the byte buffer
+	 * @throws IOException if the stream could not be read
+	 */
+	private ByteBuffer readBytes(FileInputStream fileInputStream, int size) throws IOException
+	{
 		//byte array
-		byte[] buffer = new byte[2];
+		byte[] buffer = new byte[size];
 		fileInputStream.read(buffer);
 		
 		//byte buffer
 		ByteBuffer byteBuffer = ByteBuffer.wrap(buffer);
 		byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
 		
-		return byteBuffer.getShort();
+		return byteBuffer;
 	}
 	
 	/**

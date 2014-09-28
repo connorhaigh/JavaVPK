@@ -25,9 +25,6 @@ public class Entry
 	 */
 	protected Entry(Archive archive, short archiveIndex, byte[] preloadData, String filename, String extension, int crc, int offset, int length, short terminator) throws EntryException
 	{
-		if (archive == null)
-			throw new EntryException("Parent archive cannot be null");
-		
 		this.archive = archive;
 		this.archiveIndex = archiveIndex;
 		
@@ -57,6 +54,7 @@ public class Entry
 		
 		//get target archive
 		File target = null;
+		
 		if (this.archive.isMultiPart())
 			target = this.archive.getChildArchive(this.archiveIndex);
 		else

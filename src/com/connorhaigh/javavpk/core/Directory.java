@@ -1,6 +1,5 @@
 package com.connorhaigh.javavpk.core;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class Directory 
@@ -9,7 +8,7 @@ public class Directory
 	 * Creates a new VPK directory.
 	 * @param path the path of the directory
 	 */
-	public Directory(String path)
+	protected Directory(String path)
 	{
 		this.path = path.trim();
 		this.entries = new ArrayList<Entry>();
@@ -31,7 +30,7 @@ public class Directory
 	 */
 	public String getPathFor(Entry entry)
 	{
-		return (this.path + File.separator + entry.getFullName());
+		return (this.path + Directory.SEPARATOR + entry.getFullName());
 	}
 	
 	/**
@@ -60,6 +59,8 @@ public class Directory
 	{
 		return this.entries;
 	}
+	
+	public static final String SEPARATOR = "/";
 	
 	private String path;
 	private ArrayList<Entry> entries;
