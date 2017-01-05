@@ -76,7 +76,7 @@ public class Archive
 				}
 			}
 			
-			while (true)
+			while (fileInputStream.available()!=0)
 			{
 				//get extension
 				String extension = this.readString(fileInputStream);
